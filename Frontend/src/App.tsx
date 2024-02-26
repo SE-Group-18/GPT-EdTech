@@ -1,15 +1,24 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import StudentCard from './components/StudentCard/StudentCard';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 function App() {
   return (
     <div className="App">
-  
-      <StudentCard studentId={'65da8d92d14e603d876cb448'}/>
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
