@@ -98,17 +98,17 @@ export interface TestimonialData {
 }
 
 
-export const getAllCoursesAPI: string = "http://localhost:5001/api/course";
-export const getEditableCoursesAPI: string = "http://localhost:5001/api/course/editable";
-export const getCourseAllInfoAPI: string = "http://localhost:5001/api/course/get-all-info";
-export const getCourseAnalyticsAPI: string = "http://localhost:5001/api/course/get-course-analytics";
-export const updateCourseDetailsAPI: string = "http://localhost:5001/api/course/update-details";
-export const updateLessonAPI: string = "http://localhost:5001/api/course/lessons/update";
-export const updateQuestionAPI: string = "http://localhost:5001/api/course/quiz/update";
-export const updateCourseImageAPI: string = "http://localhost:5001/api/course/image-update";
+export const getAllCoursesAPI: string = "https://gpt-edtech-production.up.railway.app/api/course";
+export const getEditableCoursesAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/editable";
+export const getCourseAllInfoAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/get-all-info";
+export const getCourseAnalyticsAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/get-course-analytics";
+export const updateCourseDetailsAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/update-details";
+export const updateLessonAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/lessons/update";
+export const updateQuestionAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/quiz/update";
+export const updateCourseImageAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/image-update";
 
 export const getTotalPointsAPI: string =
-  "http://localhost:5001/api/enrollment/get-total-points";
+  "https://gpt-edtech-production.up.railway.app/api/enrollment/get-total-points";
 export const GoldMedalImgUrl: string =
   "http://res.cloudinary.com/do2hqf8du/image/upload/v1709652796/vuyzjib3oka1lpbh2ne5.svg";
 export const SilverMedalImgUrl: string =
@@ -116,47 +116,47 @@ export const SilverMedalImgUrl: string =
 export const BronzeMedalImgUrl: string =
   "http://res.cloudinary.com/do2hqf8du/image/upload/v1709652918/eo1gkjmn5ymoyerfmkov.svg";
 export const GiveRatingAPI: string =
-  "http://localhost:5001/api/course/ratings/give-rating";
+  "https://gpt-edtech-production.up.railway.app/api/course/ratings/give-rating";
 export const SetPointsAPI: string =
-  "http://localhost:5001/api/enrollment/set-points";
+  "https://gpt-edtech-production.up.railway.app/api/enrollment/set-points";
 export const getEnrollmentAPI: string =
-  "http://localhost:5001/api/enrollment/get-enrollment";
+  "https://gpt-edtech-production.up.railway.app/api/enrollment/get-enrollment";
 export const getQuizbyCourseIdAPI: string =
-  "http://localhost:5001/api/course/quiz/get-by-id";
+  "https://gpt-edtech-production.up.railway.app/api/course/quiz/get-by-id";
 
 export const SearchCourseAPI: string =
-  "http://localhost:5001/api/course/search";
+  "https://gpt-edtech-production.up.railway.app/api/course/search";
 
 export const FetchStudentDataAPI: string =
-  "http://localhost:5001/api/student/?id=";
+  "https://gpt-edtech-production.up.railway.app/api/student/?id=";
 
 export const UpdateStudentAPI: string =
-  "http://localhost:5001/api/student/update";
+  "https://gpt-edtech-production.up.railway.app/api/student/update";
 
 export const CloudinaryUploadAPI: string =
   "https://api.cloudinary.com/v1_1/do2hqf8du/image/upload";
 
 export const FetchCourseAPI: string =
-  "http://localhost:5001/api/enrollment/courses";
+  "https://gpt-edtech-production.up.railway.app/api/enrollment/courses";
 
 export const GetCourseInfo: string =
-  "http://localhost:5001/api/course/get-info";
+  "https://gpt-edtech-production.up.railway.app/api/course/get-info";
 
 export const GetLessonsById: string =
-  "http://localhost:5001/api/course/lessons/get-by-id";
+  "https://gpt-edtech-production.up.railway.app/api/course/lessons/get-by-id";
 
 export const AddCommentAPI: string =
-  "http://localhost:5001/api/course/comments/add-comment";
+  "https://gpt-edtech-production.up.railway.app/api/course/comments/add-comment";
 
 export const GetCommentById: string =
-  "http://localhost:5001/api/course/comments/get-by-id";
+  "https://gpt-edtech-production.up.railway.app/api/course/comments/get-by-id";
 
 export const EnrollStudentAPI: string =
-  "http://localhost:5001/api/enrollment/enroll";
+  "https://gpt-edtech-production.up.railway.app/api/enrollment/enroll";
 
 export const GetAvgCourseRatingAPI: string =
-  "http://localhost:5001/api/course/ratings/get-by-id";
+  "https://gpt-edtech-production.up.railway.app/api/course/ratings/get-by-id";
 
-export const BaseAPI: string = "http://localhost:5001/api/";
+export const BaseAPI: string = "https://gpt-edtech-production.up.railway.app/api/";
 
-export const CreateNewCourse: string = "http://localhost:5001/api/course/create";
+export const CreateNewCourse: string = "https://gpt-edtech-production.up.railway.app/api/course/create";

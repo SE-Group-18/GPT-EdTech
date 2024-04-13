@@ -88,7 +88,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
         if (selectedRole === "admin") {
           // API call for admin registration
           // Example using fetch:
-          fetch("http://localhost:5001/api/admin/signup", {
+          fetch("https://gpt-edtech-production.up.railway.app/api/admin/signup", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
         } else if (selectedRole === "student") {
           // API call for student registration
           // Example using fetch:
-          fetch("http://localhost:5001/api/student/signup", {
+          fetch("https://gpt-edtech-production.up.railway.app/api/student/signup", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
