@@ -15,7 +15,7 @@
 
 /* CourseCard.module.css */
 .cardImage {
-  height: 20rem;
+  height: 30rem;
 }
 
 .courseCard {
@@ -32,4 +32,8 @@
   font-family: "Inter", sans-serif !important;
   font-size: 12px !important;
   font-weight: 400 !important;
+}
+
+.background {
+  background-color: #D9ECFF;
 }
