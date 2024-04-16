@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppSelector } from "../redux/hooks";
+import { AddCommentAPI, EnrollStudentAPI, GetAvgCourseRatingAPI, GetCommentById, GetCourseInfo, GetLessonsById, getEnrollmentAPI } from '../constant';
 
 interface Lesson {
   _id: string;
@@ -50,7 +51,7 @@ const CourseOverviewPage = () => {
 
   const enrollCourse = () => {
     axios
-      .post("https://gpt-edtech-production.up.railway.app/api/enrollment/enroll", {
+      .post(EnrollStudentAPI, {
         user_id: _id,
         course_id: courseID,
       })
@@ -67,7 +68,7 @@ const CourseOverviewPage = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post("https://gpt-edtech-production.up.railway.app/api/course/comments/add-comment", {
+      .post(AddCommentAPI, {
         course_id: courseID,
         student_id: _id,
         comment_text: commentText,
@@ -76,7 +77,7 @@ const CourseOverviewPage = () => {
         // Handle response
         //   console.log(response.data);
         axios
-          .post("https://gpt-edtech-production.up.railway.app/api/course/comments/get-by-id", {
+          .post(GetCommentById, {
             id: courseID,
           })
           .then((response) => {
@@ -108,7 +109,7 @@ const CourseOverviewPage = () => {
       //   console.log("Successfully fetched id from the url: ",id);
       setcourseID(id);
       axios
-        .post("https://gpt-edtech-production.up.railway.app/api/enrollment/get-enrollment", {
+        .post(getEnrollmentAPI, {
           user_id: _id,
           course_id: id,
         })
@@ -124,7 +125,7 @@ const CourseOverviewPage = () => {
         });
 
       axios
-        .post("https://gpt-edtech-production.up.railway.app/api/course/get-info", { id })
+        .post(GetCourseInfo, { id })
         .then((response) => {
           // Handle response
           //   console.log(response.data);
@@ -136,7 +137,7 @@ const CourseOverviewPage = () => {
           console.error("Error:", error);
         });
       axios
-        .post("https://gpt-edtech-production.up.railway.app/api/course/lessons/get-by-id", { id })
+        .post(GetLessonsById, { id })
         .then((response) => {
           // Handle response
           //   console.log(response.data);
@@ -150,7 +151,7 @@ const CourseOverviewPage = () => {
           console.error("Error:", error);
         });
       axios
-        .post("https://gpt-edtech-production.up.railway.app/api/course/ratings/get-by-id", { id })
+        .post(GetAvgCourseRatingAPI, { id })
         .then((response) => {
           // Handle response
           const avgRating = response.data;
@@ -161,7 +162,7 @@ const CourseOverviewPage = () => {
           console.error("Error:", error);
         });
       axios
-        .post("https://gpt-edtech-production.up.railway.app/api/course/comments/get-by-id", { id })
+        .post(GetCommentById, { id })
         .then((response) => {
           // Handle response
           //   console.log(response.data);

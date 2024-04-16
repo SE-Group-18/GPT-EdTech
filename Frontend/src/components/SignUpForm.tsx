@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap"; // Import React Bootstrap components
 // import validationSchema from "../Schemas/validationSchema";
 import * as yup from "yup";
+import { adminSignupAPI, studentSignupAPI } from "../constant";
 
 interface SignUpFormProps {
   // Define any props you might need here
@@ -88,7 +89,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
         if (selectedRole === "admin") {
           // API call for admin registration
           // Example using fetch:
-          fetch("https://gpt-edtech-production.up.railway.app/api/admin/signup", {
+          fetch(adminSignupAPI, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -104,7 +105,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props) => {
         } else if (selectedRole === "student") {
           // API call for student registration
           // Example using fetch:
-          fetch("https://gpt-edtech-production.up.railway.app/api/student/signup", {
+          fetch(studentSignupAPI, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

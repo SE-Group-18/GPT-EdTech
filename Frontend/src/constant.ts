@@ -98,6 +98,17 @@ export interface TestimonialData {
 }
 
 
+export const adminSignupAPI: string = "https://gpt-edtech-production.up.railway.app/api/admin/signup";
+export const adminLoginAPI: string = "https://gpt-edtech-production.up.railway.app/api/admin/login";
+
+
+export const studentSignupAPI: string = "https://gpt-edtech-production.up.railway.app/api/student/signup";
+export const studentLoginAPI: string = "https://gpt-edtech-production.up.railway.app/api/student/login";
+
+
+
+
+
 export const getAllCoursesAPI: string = "https://gpt-edtech-production.up.railway.app/api/course";
 export const getEditableCoursesAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/editable";
 export const getCourseAllInfoAPI: string = "https://gpt-edtech-production.up.railway.app/api/course/get-all-info";
