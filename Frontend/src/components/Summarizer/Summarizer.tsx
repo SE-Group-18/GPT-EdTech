@@ -41,10 +41,10 @@ const Summarizer = () => {
 
   useEffect(() => {
     // Error Handling User Not Logged In
-    if (_id == null || isAdmin==true) {
+    if (_id == null || isAdmin == true) {
       navigate("/");
     }
-})
+  });
 
   // Effect hook to update textWordCount when inputText changes
   useEffect(() => {
@@ -56,97 +56,119 @@ const Summarizer = () => {
   // Asynchronous function to send a request to OpenAI for text summarization
   const summarizeText = async () => {
     const wordCount = inputText.trim().split(/\s+/).length; // Calculate the number of words in the input text
-    if (!inputText.trim()) { // Check if input text is not empty
+    if (!inputText.trim()) {
+      // Check if input text is not empty
       setErrorMessage("Please enter some text or a title."); // Set error message if input is empty
       setSummary(""); // Clear any existing summary
       setSummaryWordCount(0); // Reset summary word count
       return; // Exit the function if input is empty
     }
 
-    if(role==="summarizer"){
-      if (wordCount > 500) { // Check if the word count exceeds 500
-        setErrorMessage("Input text exceeded the maximum word limit of 500. Please keep it below the word limit"); // Set the appropriate error message
+    if (role === "summarizer") {
+      if (wordCount > 500) {
+        // Check if the word count exceeds 500
+        setErrorMessage(
+          "Input text exceeded the maximum word limit of 500. Please keep it below the word limit"
+        ); // Set the appropriate error message
         setSummary(""); // Clear any existing summary
         setSummaryWordCount(0); // Reset the summary word count
         return; // Exit the function to prevent further processing
       }
-      if (wordCount <= 20) { // Check if the word count is below 20
-        setErrorMessage("Input text is too short to summarize. Please keep it above 20 words."); // Set the appropriate error message
-        setSummary(""); // Clear any existing summary
-        setSummaryWordCount(0); // Reset the summary word count
-        return; // Exit the function to prevent further processing
-      }
-      setLoading(true); // Indicate loading status
-    setErrorMessage(""); // Clear any existing error messages
-    try {
-      const completion = await openai.chat.completions.create({
-        messages: [
-          { role: "system", content: "You are a text summarizer." }, // System message to define the AI's role
-          { role: "user", content: inputText + `\n\nTl;dr` }, // User's input text with a prompt for summary
-        ],
-        model: "gpt-3.5-turbo", // Specify the model to use for summarization
-        temperature: 0.1, // Low temperature for deterministic output
-        max_tokens: (wordCount+2)/2, // Maximum token length for the summary
-        top_p: 1,
-        frequency_penalty: 0, // No penalty on frequency to allow repeated information if necessary
-        presence_penalty: 0.5, // Slight penalty to encourage diversity in the summary
-        stop: ['"""'], // Stop sequence to end the summary
-      });
-
-      // Check if the completion contains a valid summary
-      if (completion.choices[0]?.message?.content) {
-        setLoading(false); // Update loading status
-        const summarizedText: string = completion.choices[0]?.message?.content; // Extract the summary from the response
-        setSummary(summarizedText); // Update the summary state
-        setSummaryWordCount(summarizedText.split(/\s+/).length); // Update the summary word count
-      }
-    } catch (err) {
-      // console.log(err)
-      setLoading(false); // Update loading status in case of error
-      setSummary(""); // Clear any existing summary on error
-      setSummaryWordCount(0); // Reset summary word count on error
-      setErrorMessage("An error occurred while summarizing. Please try again."); // Set the error message
-    }
-    }
-
-    if(role==="notes_maker"){
-      if (wordCount >= 10) { // Check if the word count(of title) exceeds 10
-        setErrorMessage("Input title exceeded the word limit. Please keep the title below 10 words."); // Set the appropriate error message
+      if (wordCount <= 20) {
+        // Check if the word count is below 20
+        setErrorMessage(
+          "Input text is too short to summarize. Please keep it above 20 words."
+        ); // Set the appropriate error message
         setSummary(""); // Clear any existing summary
         setSummaryWordCount(0); // Reset the summary word count
         return; // Exit the function to prevent further processing
       }
       setLoading(true); // Indicate loading status
-    setErrorMessage(""); // Clear any existing error messages
-    try {
-      const completion = await openai.chat.completions.create({
-        messages: [
-          { role: "system", content: "You are a notes maker." }, // System message to define the AI's role
-          { role: "user", content: inputText + "\n\nMake short notes related to this title. They should be in continous paragraph form." }, // User's input text with a prompt for summary
-        ],
-        model: "gpt-3.5-turbo", // Specify the model to use for notes making
-        temperature: 0.1, // Low temperature for deterministic output
-        max_tokens: 300, // Maximum token length for the notes
-        top_p: 1,
-        frequency_penalty: 0, // No penalty on frequency to allow repeated information if necessary
-        presence_penalty: 0.5, // Slight penalty to encourage diversity in the notes
-        stop: ['"""'], // Stop sequence to end the notes
-      });
+      setErrorMessage(""); // Clear any existing error messages
+      try {
+        const completion = await openai.chat.completions.create({
+          messages: [
+            { role: "system", content: "You are a text summarizer." }, // System message to define the AI's role
+            { role: "user", content: inputText + `\n\nTl;dr` }, // User's input text with a prompt for summary
+          ],
+          model: "gpt-3.5-turbo", // Specify the model to use for summarization
+          temperature: 0.1, // Low temperature for deterministic output
+          max_tokens: Math.round((wordCount + 2) / 2), // Maximum token length for the summary
+          top_p: 1,
+          frequency_penalty: 0, // No penalty on frequency to allow repeated information if necessary
+          presence_penalty: 0.5, // Slight penalty to encourage diversity in the summary
+          stop: ['"""'], // Stop sequence to end the summary
+        });
 
-      // Check if the completion contains a valid summary
-      if (completion.choices[0]?.message?.content) {
-        setLoading(false); // Update loading status
-        const summarizedText: string = completion.choices[0]?.message?.content; // Extract the summary from the response
-        setSummary(summarizedText); // Update the summary state
-        setSummaryWordCount(summarizedText.split(/\s+/).length); // Update the summary word count
+        // Check if the completion contains a valid summary
+        if (completion.choices[0]?.message?.content) {
+          setLoading(false); // Update loading status
+          const summarizedText: string =
+            completion.choices[0]?.message?.content; // Extract the summary from the response
+          setSummary(summarizedText); // Update the summary state
+          setSummaryWordCount(summarizedText.split(/\s+/).length); // Update the summary word count
+        }
+      } catch (err) {
+        // console.log(err)
+        console.log(err);
+        setLoading(false); // Update loading status in case of error
+        setSummary(""); // Clear any existing summary on error
+        setSummaryWordCount(0); // Reset summary word count on error
+        setErrorMessage(
+          "An error occurred while summarizing. Please try again."
+        ); // Set the error message
       }
-    } catch (err) {
-      // console.log(err)
-      setLoading(false); // Update loading status in case of error
-      setSummary(""); // Clear any existing summary on error
-      setSummaryWordCount(0); // Reset summary word count on error
-      setErrorMessage("An error occurred while generating notes. Please try again."); // Set the error message
     }
+
+    if (role === "notes_maker") {
+      if (wordCount >= 10) {
+        // Check if the word count(of title) exceeds 10
+        setErrorMessage(
+          "Input title exceeded the word limit. Please keep the title below 10 words."
+        ); // Set the appropriate error message
+        setSummary(""); // Clear any existing summary
+        setSummaryWordCount(0); // Reset the summary word count
+        return; // Exit the function to prevent further processing
+      }
+      setLoading(true); // Indicate loading status
+      setErrorMessage(""); // Clear any existing error messages
+      try {
+        const completion = await openai.chat.completions.create({
+          messages: [
+            { role: "system", content: "You are a notes maker." }, // System message to define the AI's role
+            {
+              role: "user",
+              content:
+                inputText +
+                "\n\nMake short notes related to this title. They should be in continous paragraph form.",
+            }, // User's input text with a prompt for summary
+          ],
+          model: "gpt-3.5-turbo", // Specify the model to use for notes making
+          temperature: 0.1, // Low temperature for deterministic output
+          max_tokens: 300, // Maximum token length for the notes
+          top_p: 1,
+          frequency_penalty: 0, // No penalty on frequency to allow repeated information if necessary
+          presence_penalty: 0.5, // Slight penalty to encourage diversity in the notes
+          stop: ['"""'], // Stop sequence to end the notes
+        });
+
+        // Check if the completion contains a valid summary
+        if (completion.choices[0]?.message?.content) {
+          setLoading(false); // Update loading status
+          const summarizedText: string =
+            completion.choices[0]?.message?.content; // Extract the summary from the response
+          setSummary(summarizedText); // Update the summary state
+          setSummaryWordCount(summarizedText.split(/\s+/).length); // Update the summary word count
+        }
+      } catch (err) {
+        // console.log(err)
+        setLoading(false); // Update loading status in case of error
+        setSummary(""); // Clear any existing summary on error
+        setSummaryWordCount(0); // Reset summary word count on error
+        setErrorMessage(
+          "An error occurred while generating notes. Please try again."
+        ); // Set the error message
+      }
     }
   };
 
@@ -156,11 +178,11 @@ const Summarizer = () => {
     { name: "Bullet Points", value: "bullet" },
   ];
 
-    // Configuration array for the toggle buttons (modes)
-    const roles = [
-      { name: "Summarizer", value: "summarizer" },
-      { name: "Notes Maker", value: "notes_maker" },
-    ];
+  // Configuration array for the toggle buttons (modes)
+  const roles = [
+    { name: "Summarizer", value: "summarizer" },
+    { name: "Notes Maker", value: "notes_maker" },
+  ];
 
   // Render the component
   return (
@@ -168,10 +190,17 @@ const Summarizer = () => {
       <Container
         className=""
         fluid
-        style={{ backgroundColor: "#4A16BD", border: "2px solid #d1d5db",paddingBottom:"50px"}}
+        style={{
+          backgroundColor: "#4A16BD",
+          border: "2px solid #d1d5db",
+          paddingBottom: "50px",
+        }}
       >
         <div className="d-flex justify-content-center align-items-center">
-          <h1 className="m-4 text-white" style={{ textAlign: "center" ,paddingBottom:"10px"}}>
+          <h1
+            className="m-4 text-white"
+            style={{ textAlign: "center", paddingBottom: "10px" }}
+          >
             Content <span style={{ color: "#4BE5CA" }}>Summarizer</span>
           </h1>
         </div>
@@ -182,7 +211,7 @@ const Summarizer = () => {
           >
             {/* Role selection UI */}
             <div className="d-flex flex-row align-items-center justify-content-center">
-              <h6 style={{fontSize:'2.5vh'}}>Role </h6>
+              <h6 style={{ fontSize: "2.5vh" }}>Role </h6>
               <ButtonGroup className="ms-3">
                 {roles.map((m, idx) => (
                   <ToggleButton
@@ -203,7 +232,7 @@ const Summarizer = () => {
             </div>
             {/* Mode selection UI */}
             <div className="d-flex flex-row align-items-center justify-content-center">
-              <h6 style={{fontSize:'2.5vh'}}>Mode </h6>
+              <h6 style={{ fontSize: "2.5vh" }}>Mode </h6>
               <ButtonGroup className="ms-3">
                 {modes.map((m, idx) => (
                   <ToggleButton
@@ -274,7 +303,8 @@ const Summarizer = () => {
                   <p className="m-5 text-danger">{errorMessage}</p>
                 ) : mode === "paragraph" ? ( // Display summary as paragraph
                   <p className="m-5">{summary}</p>
-                ) : ( // Display summary as bullet points if mode is 'bullet'
+                ) : (
+                  // Display summary as bullet points if mode is 'bullet'
                   summary && (
                     <ul className="m-5">
                       {summary
