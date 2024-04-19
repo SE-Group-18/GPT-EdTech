@@ -22,6 +22,7 @@ import EditCourse from "./components/Admin Courses/EditCourse";
 import AllCourseAnalytics from "./components/Admin Courses/AllCourseAnalytics";
 import CourseAnalytics from "./components/Admin Courses/CourseAnalytics";
 import Summarizer from "./components/Summarizer/Summarizer";
+import MERN from "./components/Summarizer/MERN";
 import AboutUs from "./components/About Us/AboutUs";
 import "./custom.scss";
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="/course-analytics" element={<CourseAnalytics />}></Route>
         <Route path="/summarizer" element={<Summarizer />}></Route>
         <Route path="/about-us" element={<AboutUs />}></Route>
+        <Route path="/contact-us" element={<MERN/>}></Route>
       </Routes>
       <Footer />
     </>
