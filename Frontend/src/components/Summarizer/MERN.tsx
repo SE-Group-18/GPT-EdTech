@@ -115,10 +115,10 @@ const Summarizer = () => {
             let language = '';
 
             if (summarizedText) {
-                const codeBlockMatch = summarizedText.match(/```(tsx|jsx)?([\s\S]*?)```/);
+                const codeBlockMatch = summarizedText.match(/```(tsx|jsx|javascript|typescript)?([\s\S]*?)```/);
                 if (codeBlockMatch) {
                     language = codeBlockMatch[1] || ''; // Save the language identifier (tsx or jsx)
-                    codeBlock = codeBlockMatch[0].replace(/```(tsx|jsx)?/, '```');
+                    codeBlock = codeBlockMatch[0].replace(/```(tsx|jsx|javascript|typescript)?/, '```');
                     textContent = textContent.replace(codeBlockMatch[0], '').trim();
                 }
             }
