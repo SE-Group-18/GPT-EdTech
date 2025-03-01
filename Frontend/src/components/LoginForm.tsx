@@ -15,6 +15,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../redux/hooks/index";
 import { setUserData, clearUserData } from "../redux/slices/User_Slice";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { adminLoginAPI, studentLoginAPI } from "../constant";
 // Define validation schema using yup
 const validationSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
@@ -48,7 +49,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 
   const handleAdminLogin = async (email: any, password: any) => {
     // Make a POST request to the admin login endpoint
-    const response = await fetch("http://localhost:5001/api/admin/login", {
+    const response = await fetch(adminLoginAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +62,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
 
   const handleStudentLogin = async (email: any, password: any) => {
     // Make a POST request to the student login endpoint
-    const response = await fetch("http://localhost:5001/api/student/login", {
+    const response = await fetch(studentLoginAPI, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
